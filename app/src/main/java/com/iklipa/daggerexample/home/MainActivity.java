@@ -1,18 +1,16 @@
 package com.iklipa.daggerexample.home;
 
-import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
-import android.util.AttributeSet;
-import android.view.View;
+import com.iklipa.daggerexample.R;
+import com.iklipa.daggerexample.base.BaseActivity;
 
 /**
  * Created by iklipa on 7/24/2018.
  */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
-    public View onCreateView(String name, Context context, AttributeSet attrs) {
-        return super.onCreateView(name, context, attrs);
+    protected int layoutRes() {
+        return R.layout.main_activity;
     }
 }
