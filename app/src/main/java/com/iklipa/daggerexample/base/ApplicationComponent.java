@@ -1,5 +1,7 @@
 package com.iklipa.daggerexample.base;
 
+import android.app.Application;
+
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -14,5 +16,5 @@ import dagger.Component;
         ActivityBindingModule.class,
 })
 public interface ApplicationComponent {
-    void inject(MyApplication myApplication);
+    void inject(Application application);
 }

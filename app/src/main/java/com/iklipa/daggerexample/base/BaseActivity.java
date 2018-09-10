@@ -15,6 +15,7 @@ import com.bluelinelabs.conductor.Router;
 import com.iklipa.daggerexample.R;
 import com.iklipa.daggerexample.di.Injector;
 import com.iklipa.daggerexample.di.ScreenInjector;
+import com.iklipa.daggerexample.ui.ScreenNavigation;
 
 import java.util.UUID;
 
@@ -30,6 +31,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Inject
     ScreenInjector screenInjector;
+    @Inject
+    ScreenNavigation screenNavigation;
 
     private String instanceId;
     private Router router;
@@ -48,6 +51,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             throw new NullPointerException("Activity must have a view with id: screen_container");
         }
         router = Conductor.attachRouter(this, screenContainer, savedInstanceState);
+        screenNavigation.initWithRouter(router, initialScreen());
         monitorBackstack();
         super.onCreate(savedInstanceState, persistentState);
     }
@@ -55,10 +59,19 @@ public abstract class BaseActivity extends AppCompatActivity {
     @LayoutRes
     protected abstract int layoutRes();
 
+    protected abstract Controller initialScreen();
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(INSTANCE_ID_KEY, instanceId);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!screenNavigation.pop()) {
+            super.onBackPressed();
+        }
     }
 
     public String getInstanceId() {
@@ -68,6 +81,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        screenNavigation.clear();
         if (isFinishing()) {
             Injector.clearComponent(this);
         }
