@@ -1,7 +1,6 @@
 package com.iklipa.daggerexample.models;
 
 import com.ryanharter.auto.value.moshi.MoshiAdapterFactory;
-import com.squareup.moshi.Json;
 import com.squareup.moshi.JsonAdapter;
 
 /**

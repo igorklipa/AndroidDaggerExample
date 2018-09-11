@@ -15,7 +15,7 @@ import org.threeten.bp.ZonedDateTime;
 @AutoValue
 public abstract class Repo {
 
-    public abstract long id();
+    public abstract Long id();
 
     public abstract String name();
 
