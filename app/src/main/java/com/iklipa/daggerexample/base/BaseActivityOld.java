@@ -22,21 +22,23 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 /**
- * Created by iklipa on 7/30/2018.
+ * Created by iklipa on 9/14/2018.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivityOld extends AppCompatActivity {
 
     private static final String INSTANCE_ID_KEY = "instance_id";
 
-    @Inject ScreenInjector screenInjector;
-    @Inject ScreenNavigation screenNavigator;
+    @Inject
+    ScreenInjector screenInjector;
+    @Inject
+    ScreenNavigation screenNavigation;
 
     private String instanceId;
     private Router router;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         if (savedInstanceState != null) {
             instanceId = savedInstanceState.getString(INSTANCE_ID_KEY);
         } else {
@@ -50,29 +52,28 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (screenContainer == null) {
             throw new NullPointerException("Activity must have a view with id: screen_container");
         }
-
         router = Conductor.attachRouter(this, screenContainer, savedInstanceState);
-        screenNavigator.initWithRouter(router, initialScreen());
-        monitorBackStack();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString(INSTANCE_ID_KEY, instanceId);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (!screenNavigator.pop()) {
-            super.onBackPressed();
-        }
+        screenNavigation.initWithRouter(router, initialScreen());
+        monitorBackstack();
     }
 
     @LayoutRes
     protected abstract int layoutRes();
 
     protected abstract Controller initialScreen();
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(INSTANCE_ID_KEY, instanceId);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!screenNavigation.pop()) {
+            super.onBackPressed();
+        }
+    }
 
     public String getInstanceId() {
         return instanceId;
@@ -81,7 +82,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        screenNavigator.clear();
+        screenNavigation.clear();
         if (isFinishing()) {
             Injector.clearComponent(this);
         }
@@ -91,25 +92,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         return screenInjector;
     }
 
-    private void monitorBackStack() {
+    private void monitorBackstack() {
         router.addChangeListener(new ControllerChangeHandler.ControllerChangeListener() {
             @Override
-            public void onChangeStarted(
-                    @Nullable Controller to,
-                    @Nullable Controller from,
-                    boolean isPush,
-                    @NonNull ViewGroup container,
-                    @NonNull ControllerChangeHandler handler) {
+            public void onChangeStarted(@Nullable Controller to, @Nullable Controller from, boolean isPush, @NonNull ViewGroup container, @NonNull ControllerChangeHandler handler) {
 
             }
 
             @Override
-            public void onChangeCompleted(
-                    @Nullable Controller to,
-                    @Nullable Controller from,
-                    boolean isPush,
-                    @NonNull ViewGroup container,
-                    @NonNull ControllerChangeHandler handler) {
+            public void onChangeCompleted(@Nullable Controller to, @Nullable Controller from, boolean isPush, @NonNull ViewGroup container, @NonNull ControllerChangeHandler handler) {
                 if (!isPush && from != null) {
                     Injector.clearComponent(from);
                 }
