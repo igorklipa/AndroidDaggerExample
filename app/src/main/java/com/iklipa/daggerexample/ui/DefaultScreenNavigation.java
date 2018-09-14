@@ -5,6 +5,8 @@ import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.iklipa.daggerexample.di.ActivityScope;
 
+import javax.inject.Inject;
+
 /**
  * Created by iklipa on 9/10/2018.
  */
@@ -13,6 +15,11 @@ import com.iklipa.daggerexample.di.ActivityScope;
 public class DefaultScreenNavigation implements ScreenNavigation {
 
     private Router router;
+
+    @Inject
+    DefaultScreenNavigation() {
+
+    }
 
     @Override
     public void initWithRouter(Router router, Controller routeScreen) {

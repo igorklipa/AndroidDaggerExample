@@ -1,7 +1,6 @@
 package com.iklipa.daggerexample.base;
 
 import android.app.Application;
-import android.app.Service;
 
 import com.iklipa.daggerexample.data.RepoServiceModule;
 import com.iklipa.daggerexample.networking.ServiceModule;
@@ -22,5 +21,5 @@ import dagger.Component;
         RepoServiceModule.class,
 })
 public interface ApplicationComponent {
-    void inject(Application application);
+    void inject(MyApplication myApplication);
 }

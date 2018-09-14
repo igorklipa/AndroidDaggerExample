@@ -27,7 +27,7 @@ import javax.inject.Inject;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    private static String INSTANCE_ID_KEY = "instance_id";
+    private static final String INSTANCE_ID_KEY = "instance_id";
 
     @Inject
     ScreenInjector screenInjector;
@@ -45,6 +45,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             instanceId = UUID.randomUUID().toString();
         }
         Injector.inject(this);
+        super.onCreate(savedInstanceState);
+
         setContentView(layoutRes());
         ViewGroup screenContainer = findViewById(R.id.screen_container);
         if (screenContainer == null) {
@@ -53,7 +55,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         router = Conductor.attachRouter(this, screenContainer, savedInstanceState);
         screenNavigation.initWithRouter(router, initialScreen());
         monitorBackstack();
-        super.onCreate(savedInstanceState, persistentState);
     }
 
     @LayoutRes

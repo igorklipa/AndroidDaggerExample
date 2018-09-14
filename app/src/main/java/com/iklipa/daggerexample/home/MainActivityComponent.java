@@ -1,6 +1,7 @@
 package com.iklipa.daggerexample.home;
 
 import com.iklipa.daggerexample.di.ActivityScope;
+import com.iklipa.daggerexample.ui.NavigationModule;
 
 import dagger.Subcomponent;
 import dagger.android.AndroidInjector;
@@ -11,7 +12,8 @@ import dagger.android.AndroidInjector;
 
 @ActivityScope
 @Subcomponent(modules = {
-        MainScreenBindingModule.class
+        MainScreenBindingModule.class,
+        NavigationModule.class
 })
 public interface MainActivityComponent extends AndroidInjector<MainActivity> {
 

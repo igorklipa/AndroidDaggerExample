@@ -21,6 +21,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 @Module(includes = NetworkModule.class)
 public abstract class ServiceModule {
 
+    @Provides
+    @Singleton
     static Moshi providerMoshi() {
         return new Moshi.Builder()
                 .add(AdapterFactory.create())

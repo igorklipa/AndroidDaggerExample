@@ -40,7 +40,8 @@ public class ActivityInjector {
         }
 
         //noinspection unchecked
-        AndroidInjector.Factory<Activity> injectorFactory = (AndroidInjector.Factory<Activity>) activityInjectors.get(activity.getClass()).get();
+        AndroidInjector.Factory<Activity> injectorFactory =
+                (AndroidInjector.Factory<Activity>) activityInjectors.get(activity.getClass()).get();
         AndroidInjector<Activity> injector = injectorFactory.create(activity);
         cache.put(instanceId, injector);
         injector.inject(activity);
