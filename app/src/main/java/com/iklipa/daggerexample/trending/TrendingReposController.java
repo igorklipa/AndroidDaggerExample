@@ -43,7 +43,7 @@ public class TrendingReposController extends BaseController {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(loading -> {
                     loadingView.setVisibility(loading ? View.VISIBLE : View.GONE);
-                    repoList.setVisibility(loading ? View.GONE : View.GONE);
+                    repoList.setVisibility(loading ? View.GONE : View.VISIBLE);
                     errorText.setVisibility(loading ? View.GONE : errorText.getVisibility());
                 }),
                 viewModel.repos()
