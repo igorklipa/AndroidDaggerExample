@@ -35,6 +35,7 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
 
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
     implementation "com.squareup.moshi:moshi:$moshiVersion"
     annotationProcessor "com.ryanharter.auto.value:auto-value-moshi:$autoValueMoshiVersion"
@@ -43,26 +44,23 @@ dependencies {
     compileOnly "com.google.auto.value:auto-value:$autoValueVersion"
     annotationProcessor "com.google.auto.value:auto-value:$autoValueVersion"
 
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
-
-    compile "com.jakewharton.threetenabp:threetenabp:$threeTenAbpVersion"
+    implementation "com.jakewharton.threetenabp:threetenabp:$threeTenAbpVersion"
 
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
     implementation "com.jakewharton.rxrelay2:rxrelay:$rxRelayVersion"
-
-    implementation "com.jakewharton.timber:timber:$timberVersion"
 
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
     implementation "com.bluelinelabs:conductor:$conductorVersion"
 
-    androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    implementation "com.jakewharton.timber:timber:$timberVersion"
+
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }

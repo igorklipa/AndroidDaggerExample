@@ -2,6 +2,7 @@ package com.iklipa.daggerexample.base;
 
 import com.iklipa.daggerexample.data.TestRepoServiceModule;
 import com.iklipa.daggerexample.networking.ServiceModule;
+import com.iklipa.daggerexample.trending.TrendingReposControllerTest;
 import com.iklipa.daggerexample.ui.NavigationModule;
 
 import javax.inject.Singleton;
@@ -21,4 +22,5 @@ import dagger.Component;
         NavigationModule.class
 })
 public interface TestApplicationComponent extends ApplicationComponent {
+    void inject(TrendingReposControllerTest trendingReposControllerTest);
 }

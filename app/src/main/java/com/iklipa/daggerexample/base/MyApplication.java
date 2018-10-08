@@ -18,7 +18,7 @@ public class MyApplication extends Application {
     @Inject
     ActivityInjector activityInjector;
 
-    private ApplicationComponent component;
+    protected ApplicationComponent component;
 
     @Override
     public void onCreate() {
