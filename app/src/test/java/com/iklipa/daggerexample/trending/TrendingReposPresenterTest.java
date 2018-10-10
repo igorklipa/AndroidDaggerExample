@@ -18,7 +18,6 @@ import java.util.List;
 import io.reactivex.Single;
 import io.reactivex.functions.Consumer;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;

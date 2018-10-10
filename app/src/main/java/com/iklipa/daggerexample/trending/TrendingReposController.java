@@ -39,29 +39,41 @@ public class TrendingReposController extends BaseController {
     @Override
     protected Disposable[] subscriptions() {
         return new Disposable[]{
-                viewModel.loading()
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(loading -> {
+                getLoadingDisposable(),
+                getReposDisposable(),
+                getErrorDisposable()
+        };
+    }
+
+    private Disposable getLoadingDisposable() {
+        return viewModel.loading()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(loading -> {
                     loadingView.setVisibility(loading ? View.VISIBLE : View.GONE);
                     repoList.setVisibility(loading ? View.GONE : View.VISIBLE);
                     errorText.setVisibility(loading ? View.GONE : errorText.getVisibility());
-                }),
-                viewModel.repos()
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(((RepoAdapter)repoList.getAdapter())::setData),
-                viewModel.error()
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(errorRes -> {
-                            if(errorRes == -1) {
-                                errorText.setText(null);
-                                errorText.setVisibility(View.GONE);
-                            } else {
-                                errorText.setVisibility(View.VISIBLE);
-                                repoList.setVisibility(View.GONE);
-                                errorText.setText(errorRes);
-                            }
-                })
-        };
+                });
+    }
+
+    private Disposable getReposDisposable() {
+        return viewModel.repos()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(((RepoAdapter)repoList.getAdapter())::setData);
+    }
+
+    private Disposable getErrorDisposable() {
+        return viewModel.error()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(errorRes -> {
+                    if(errorRes == -1) {
+                        errorText.setText(null);
+                        errorText.setVisibility(View.GONE);
+                    } else {
+                        errorText.setVisibility(View.VISIBLE);
+                        repoList.setVisibility(View.GONE);
+                        errorText.setText(errorRes);
+                    }
+                });
     }
 
     @Override

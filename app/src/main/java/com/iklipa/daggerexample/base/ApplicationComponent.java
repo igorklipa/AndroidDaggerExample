@@ -1,7 +1,5 @@
 package com.iklipa.daggerexample.base;
 
-import android.app.Application;
-
 import com.iklipa.daggerexample.data.RepoServiceModule;
 import com.iklipa.daggerexample.networking.ServiceModule;
 
