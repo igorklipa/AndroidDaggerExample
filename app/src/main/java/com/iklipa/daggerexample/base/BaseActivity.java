@@ -1,7 +1,6 @@
 package com.iklipa.daggerexample.base;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

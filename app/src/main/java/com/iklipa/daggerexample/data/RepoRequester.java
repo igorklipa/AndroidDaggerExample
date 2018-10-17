@@ -1,5 +1,6 @@
 package com.iklipa.daggerexample.data;
 
+import com.iklipa.daggerexample.models.Contributer;
 import com.iklipa.daggerexample.models.Repo;
 
 import java.util.List;
@@ -22,9 +23,16 @@ public class RepoRequester {
         this.repoService = repoService;
     }
 
-    public Single<List<Repo>> getTrendingRepos() {
+    Single<List<Repo>> getTrendingRepos() {
         return repoService.getTrendingRepos()
-                .map(TrendingReposResponse::repos)
-                .subscribeOn(Schedulers.io());
+                .map(TrendingReposResponse::repos);
+    }
+
+    Single<Repo> getRepo(String repoOwner, String repoName) {
+        return repoService.getRepo(repoOwner, repoName);
+    }
+
+    Single<List<Contributer>> getContributors(String url) {
+        return repoService.getContributors(url);
     }
 }
